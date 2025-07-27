@@ -1,0 +1,49 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Doctor Appointment System API",
+    "description" : "REST API documentation for Doctor Appointment System",
+    "termsOfService" : null,
+    "contact" : {
+      "name" : "Hospital Admin",
+      "url" : "https://www.hospital.com",
+      "email" : "admin@hospital.com",
+      "extensions" : null
+    },
+    "license" : {
+      "name" : "Apache 2.0",
+      "url" : "http://www.apache.org/licenses/LICENSE-2.0.html",
+      "identifier" : null,
+      "extensions" : null
+    },
+    "version" : "1.0",
+    "extensions" : null,
+    "summary" : null
+  },
+  "externalDocs" : null,
+  "servers" : [ {
+    "url" : "http://localhost:8080",
+    "description" : "Development Server",
+    "variables" : null,
+    "extensions" : null
+  } ],
+  "security" : null,
+  "tags" : null,
+  "paths" : { },
+  "components" : {
+    "schemas" : null,
+    "responses" : null,
+    "parameters" : null,
+    "examples" : null,
+    "requestBodies" : null,
+    "headers" : null,
+    "securitySchemes" : null,
+    "links" : null,
+    "callbacks" : null,
+    "extensions" : null,
+    "pathItems" : null
+  },
+  "extensions" : null,
+  "jsonSchemaDialect" : null,
+  "webhooks" : null
+}
