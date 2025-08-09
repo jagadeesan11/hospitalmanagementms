@@ -49,6 +49,22 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(DuplicateResourceException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateResourceException(
+            DuplicateResourceException ex,
+            HttpServletRequest request) {
+        ErrorMessageResolver.ErrorDetail error = errorMessageResolver.getErrorDetail("error.duplicate.resource");
+        ErrorResponse response = ErrorResponse.of(
+                error.getCode(),
+                error.getTitle(),
+                ex.getMessage(),
+                error.getDetail(),
+                HttpStatus.CONFLICT.value()
+        );
+        log.error("Duplicate resource: {}", ex.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+    }
+
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponse> handleIllegalArgumentException(
             IllegalArgumentException ex,

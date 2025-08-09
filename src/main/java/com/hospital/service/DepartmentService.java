@@ -4,6 +4,7 @@ import com.hospital.dto.DepartmentDTO;
 import com.hospital.entity.Department;
 import com.hospital.entity.Hospital;
 import com.hospital.entity.Block;
+import com.hospital.exception.DuplicateResourceException;
 import com.hospital.exception.ResourceNotFoundException;
 import com.hospital.repository.DepartmentRepository;
 import com.hospital.repository.HospitalRepository;
@@ -38,6 +39,12 @@ public class DepartmentService {
 
         Hospital hospital = hospitalRepository.findById(departmentDTO.getHospitalId())
             .orElseThrow(() -> new ResourceNotFoundException("Hospital not found with id: " + departmentDTO.getHospitalId()));
+
+        // Check for duplicate department name within the same hospital
+        if (departmentRepository.existsByNameAndHospitalId(departmentDTO.getName(), departmentDTO.getHospitalId())) {
+            throw new DuplicateResourceException("Department with name '" + departmentDTO.getName() +
+                "' already exists in hospital '" + hospital.getName() + "'");
+        }
 
         Block block = null;
         if (departmentDTO.getBlockId() != null) {
@@ -81,6 +88,18 @@ public class DepartmentService {
         log.info("Updating department with ID: {}", id);
 
         Department department = getDepartment(id);
+
+        // Store original values for duplicate checking
+        String newName = departmentDTO.getName() != null ? departmentDTO.getName() : department.getName();
+        Long newHospitalId = departmentDTO.getHospitalId() != null ? departmentDTO.getHospitalId() : department.getHospital().getId();
+
+        // Check for duplicate department name within the same hospital (excluding current department)
+        if (departmentRepository.existsByNameAndHospitalIdAndIdNot(newName, newHospitalId, id)) {
+            Hospital hospital = hospitalRepository.findById(newHospitalId)
+                .orElseThrow(() -> new ResourceNotFoundException("Hospital not found with id: " + newHospitalId));
+            throw new DuplicateResourceException("Department with name '" + newName +
+                "' already exists in hospital '" + hospital.getName() + "'");
+        }
 
         if (departmentDTO.getName() != null) {
             department.setName(departmentDTO.getName());
