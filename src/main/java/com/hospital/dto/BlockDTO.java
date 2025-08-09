@@ -13,7 +13,6 @@ public class BlockDTO {
 
     private String description;
 
-    @NotNull(message = "Floor number is required")
     private Integer floorNumber;
 
     @NotNull(message = "Hospital ID is required")

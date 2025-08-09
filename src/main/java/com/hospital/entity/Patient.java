@@ -41,6 +41,10 @@ public class Patient {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "patient"})
     private Set<Appointment> appointments = new HashSet<>();
 
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "patient"})
+    private Set<Bill> bills = new HashSet<>();
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

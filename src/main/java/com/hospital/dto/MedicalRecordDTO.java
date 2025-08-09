@@ -1,5 +1,6 @@
 package com.hospital.dto;
 
+import com.hospital.entity.Doctor;
 import com.hospital.entity.MedicalRecord;
 import lombok.Data;
 
