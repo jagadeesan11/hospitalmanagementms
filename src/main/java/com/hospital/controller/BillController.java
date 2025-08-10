@@ -2,6 +2,7 @@ package com.hospital.controller;
 
 import com.hospital.dto.BillDTO;
 import com.hospital.dto.BillItemDTO;
+import com.hospital.dto.PaymentDTO;
 import com.hospital.entity.Bill;
 import com.hospital.service.BillService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -124,11 +125,9 @@ public class BillController {
     @Operation(summary = "Add payment to a bill")
     public ResponseEntity<Bill> addPayment(
             @PathVariable Long billId,
-            @RequestParam BigDecimal amount,
-            @RequestParam Bill.PaymentMethod paymentMethod,
-            @RequestParam(required = false) String paymentReference) {
-        log.info("Request received to add payment of {} to bill ID: {}", amount, billId);
-        Bill bill = billService.addPayment(billId, amount, paymentMethod, paymentReference);
+            @Valid @RequestBody PaymentDTO paymentDTO) {
+        log.info("Request received to add payment of {} to bill ID: {}", paymentDTO.getAmount(), billId);
+        Bill bill = billService.addPayment(billId, paymentDTO.getAmount(), paymentDTO.getPaymentMethod(), paymentDTO.getPaymentReference());
         return ResponseEntity.ok(bill);
     }
 }
