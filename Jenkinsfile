@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        AWS_REGION = 'us-west-2'
-        EKS_CLUSTER_NAME = 'hospital-management-cluster'
-        ECR_REPOSITORY = '123456789012.dkr.ecr.us-west-2.amazonaws.com/hospitalmanagement'
+        AWS_REGION = 'eu-north-1'
+        EKS_CLUSTER_NAME = 'dev1aw-cluster'
+        ECR_REPOSITORY = '758888582296.dkr.ecr.eu-north-1.amazonaws.com/hospitalmanagement'
         IMAGE_TAG = "${BUILD_NUMBER}"
         KUBECONFIG = credentials('kubeconfig-hospital')
         AWS_CREDENTIALS = credentials('aws-credentials')
