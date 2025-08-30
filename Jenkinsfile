@@ -11,8 +11,8 @@ pipeline {
     }
 
     tools {
-        maven 'Maven-3.9.4'
-        jdk 'JDK-19'
+        maven 'Maven-3.8.4'
+        jdk 'Corretto-21.0.8'
     }
 
     stages {
